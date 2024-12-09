@@ -1,0 +1,33 @@
+﻿@page "/counter"
+
+<PageTitle>Counter</PageTitle>
+
+<h1>Counter</h1>
+
+@* <p role="status">Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+@code {
+    private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+} *@
+
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+@inject IState<CounterState> CounterState
+@inject IDispatcher Dispatcher
+
+<h3>Counter</h3>
+<p>Count: @CounterState.Value.Count</p>
+
+<button class="btn btn-primary" @onclick="Increment">Increment</button>
+<button class="btn btn-secondary" @onclick="Decrement">Decrement</button>
+
+@code {
+    private void Increment() => Dispatcher.Dispatch(new IncrementCounterAction());
+    private void Decrement() => Dispatcher.Dispatch(new DecrementCounterAction());
+}
